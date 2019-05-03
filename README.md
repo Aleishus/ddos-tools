@@ -10,41 +10,51 @@
  根据DDOS攻击的类型，可以简单分为两类 网络层DDOS攻击 和 应用层DDOS攻击
 
 #### 1. 网络层DDOS攻击
- 常见的网络层DDoS攻击就是利用TCP/IP协议族的一些特征，控制大量的傀儡机发送合理的请求来消耗攻击目标主机的网络资源。
- 常见的网络层DDoS攻击方式有：
+>常见的网络层DDoS攻击就是利用TCP/IP协议族的一些特征，控制大量的傀儡机发送合理的请求来消耗攻击目标主机的网络资源。
+
+>常见的网络层DDoS攻击方式有：
 SYN Flood、ACK Flood、Connection Flood、UDP Flood、ICMP Flood、TCP Flood、Proxy Flood， SSDP等。
 
 #### 2. 应用层DDOS攻击
- 常见的应用层DDoS攻击主要是消耗主机的CPU和内存等资源。
- 常见的应用层DDoS攻击方式有：
+ >常见的应用层DDoS攻击主要是消耗主机的CPU和内存等资源。
+
+ >常见的应用层DDoS攻击方式有：
 Slowloris 攻击，Slow Attack，JavaScript DDoS，ReDoS 攻击，DNS Query Flood
 
 ### 二.本工具攻击方法简介
 
 #### 网络层UDP攻击(/udp/)：
+
 >原理：发送海量数据包，顷刻占满目标系统的全部带宽，正常请求被堵在门外，拒绝服务的目的达成。
-1. UDP直接攻击（/udp/local/udpflood.php ）
-  - 优点：操作简单，直接在本机上即可发动攻击
-  - 缺点：由于本机发送大量UDP请求可能会被服务器商警告，或者在路由上被丢弃，且大型站点的机房都有防御，UDP直接攻击流量峰值无法突破大型站点的防御。正常应用情况下，UDP 包双向流量会基本相等，因此在消耗对方资源的时候也在消耗自己的资源。
-2. UDP反射型攻击（/udp/proxy/Saddam.py）
+
+    1.UDP直接攻击（/udp/local/udpflood.php ）
+        优点：操作简单，直接在本机上即可发动攻击
+        缺点：由于本机发送大量UDP请求可能会被服务器商警告，或者在路由上被丢弃，且大型站点的机房都有防御，UDP直接攻击流量峰值无法突破大型站点的防御。正常应用情况下，UDP 包双向流量会基本相等，因此在消耗对方资源的时候也在消耗自己的资源。
+
+    2.UDP反射型攻击（/udp/proxy/Saddam.py）
+
 >原理：在 UDP 协议中正常情况下客户端发送请求包到服务端，服务端返回响应包到客户端，但是 UDP 协议是面向无连接的，所以客户端发送请求包的源 IP 很容易进行伪造，当把源 IP 修改为受害者的 IP，最终服务端返回的响应包就会返回到受害者的IP。这样只需要以较小的伪造源地址的查询流量就可以制造出几十甚至上百倍的应答流量发送至目标。
-原理图如下：
-udp.png
-  - 优点：可以用较小的流量达到较大的攻击流量，且流量来自世界各地的真实服务器，难以被拦截。
-  - 缺点：操作复杂，需收集大量IP，且需要机房允许发送伪造的数据包（大部分正规机房不允许发送伪造的UDP数据包）
+    原理图如下：
+    udp.png
+
+        优点：可以用较小的流量达到较大的攻击流量，且流量来自世界各地的真实服务器，难以被拦截。
+        缺点：操作复杂，需收集大量IP，且需要机房允许发送伪造的数据包（大部分正规机房不允许发送伪造的UDP数据包）
 
 #### 应用层CC攻击(/cc/):
+
 > 原理：对一些消耗资源较大的应用页面不断发起正常的请求，以达到消耗服务器端资源的目的。在Web应用中，查询数据库、读写硬盘文件等操作，相对都会消耗比较多的资源。
-1. CC直接攻击（/cc/local.py）
-  - 优点：操作便捷，使用本机运行程序攻击
-  - 缺点：单IP请求太频繁容易被目标站防火墙拦截禁封IP
-2. CC代理攻击（/cc/proxy-txt.py）
-  - 优点：使用大量代理IP攻击，不易被拦截
-  - 缺点：需要购买大量代理IP
+
+    1.CC直接攻击（/cc/local.py）
+      优点：操作便捷，使用本机运行程序攻击
+      缺点：单IP请求太频繁容易被目标站防火墙拦截禁封IP
+
+    2.CC代理攻击（/cc/proxy-txt.py）
+      优点：使用大量代理IP攻击，不易被拦截
+      缺点：需要购买大量代理IP
 
 ### 三.使用方法
-- 如果要攻击的站点使用的是独立IP，可以直接输入IP地址
-- 如果要攻击的站点为某个网址，建议修改/etc/hosts，绑定要攻击域名与IP，减少DNS查询次数
+    如果要攻击的站点使用的是独立IP，可以直接输入IP地址
+    如果要攻击的站点为某个网址，建议修改/etc/hosts，绑定要攻击域名与IP，减少DNS查询次数
 
 #### 网络层UDP攻击(/udp/)
 > php版本 > 5.4
@@ -74,26 +84,25 @@ udp.png
 > python版本3.6
 1. CC直接攻击(cc/local.py)
 ```sh
-//get请求攻击 
+#get请求攻击 
 python3 local-post.py -v http://www.test.com/search.php?searchword=
-//post请求攻击 
+#post请求攻击 
 python3 local-post.py -v http://www.test.com/search.php -p searchword
 ```
 
 2. CC代理攻击(cc/proxy/)
 ```sh
-//随机调用files/proxy.txt代理请求攻击 
+#随机调用files/proxy.txt代理请求攻击 
 python3 proxy-txt.py -v http://www.test.com/search.php?keyword=
-//使用luminati代理接口
+#使用luminati代理接口(修改proxyUser和proxyPass为自己的账户)
 python3 proxy-lum.py -v http://www.test.com/search.php?keyword=
-//使用abuyun代理接口
+#使用abuyun代理接口(修改proxyUser和proxyPass为自己的账户)
 python3 proxy-lum.py -v http://www.test.com/search.php?keyword=
 ```
 
 ##### 参数说明
-- v 必选 待攻击网址或ip地址，例： www.test.com
-- t 可选 请求超时时间，默认为10秒， 例：20
-- p 可选 启用post请求方式，例： searchword
+- v 必选 待攻击网址或ip地址，例：-v www.test.com
+- p 可选 post请求参数，例：-p searchword
 
 ##### files目录文件说明
 - proxy.txt 随机代理，一行一个
