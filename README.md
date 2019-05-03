@@ -7,18 +7,16 @@
 
 ### 一.DDOS攻击简介
 
-#### 根据DDOS攻击的类型，可以简单分为两类 网络层DDOS攻击 和 应用层DDOS攻击
+ 根据DDOS攻击的类型，可以简单分为两类 网络层DDOS攻击 和 应用层DDOS攻击
 
 #### 1. 网络层DDOS攻击
->常见的网络层DDoS攻击就是利用TCP/IP协议族的一些特征，控制大量的傀儡机发送合理的请求来消耗攻击目标主机的网络资源。
-
->常见的网络层DDoS攻击方式有：
+ 常见的网络层DDoS攻击就是利用TCP/IP协议族的一些特征，控制大量的傀儡机发送合理的请求来消耗攻击目标主机的网络资源。
+ 常见的网络层DDoS攻击方式有：
 SYN Flood、ACK Flood、Connection Flood、UDP Flood、ICMP Flood、TCP Flood、Proxy Flood， SSDP等。
 
 #### 2. 应用层DDOS攻击
->常见的应用层DDoS攻击主要是消耗主机的CPU和内存等资源。
-
->常见的应用层DDoS攻击方式有：
+ 常见的应用层DDoS攻击主要是消耗主机的CPU和内存等资源。
+ 常见的应用层DDoS攻击方式有：
 Slowloris 攻击，Slow Attack，JavaScript DDoS，ReDoS 攻击，DNS Query Flood
 
 ### 二.本工具攻击方法简介
@@ -69,7 +67,7 @@ udp.png
     2.填写参数运行python程序
 
         `python Saddam.py www.test.com benchmark -n ntp.txt `
-        
+
     > 此处以ntp攻击为例，其他反射攻击收集不同端口IP地址并修改 -n ntp.txt 即可，(-d dns反射攻击，-s snmp反射攻击， -p ssdp放射攻击)
 
 #### 应用层CC攻击(/cc/)
