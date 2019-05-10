@@ -1,29 +1,11 @@
 # 常用dddos工具集合
 ## 目录
-* [DDOS攻击简介](#DDOS攻击简介)
 * [本工具攻击方法简介](#本工具攻击方法简介)
 * [本工具使用方法](#使用方法)
 
+### 本工具攻击方法简介
 
-### 一.DDOS攻击简介
-
- 根据DDOS攻击的类型，可以简单分为两类 网络层DDOS攻击 和 应用层DDOS攻击
-
-#### 1. 网络层DDOS攻击
->常见的网络层DDoS攻击就是利用TCP/IP协议族的一些特征，控制大量的傀儡机发送合理的请求来消耗攻击目标主机的网络资源。
-
->常见的网络层DDoS攻击方式有：
-SYN Flood、ACK Flood、Connection Flood、UDP Flood、ICMP Flood、TCP Flood、Proxy Flood， SSDP等。
-
-#### 2. 应用层DDOS攻击
- >常见的应用层DDoS攻击主要是消耗主机的CPU和内存等资源。
-
- >常见的应用层DDoS攻击方式有：
-Slowloris 攻击，Slow Attack，JavaScript DDoS，ReDoS 攻击，DNS Query Flood
-
-### 二.本工具攻击方法简介
-
-#### 网络层UDP攻击(/udp/)：
+#### 网络层UDP攻击(目录：/udp/)：
 
 >原理：发送海量数据包，顷刻占满目标系统的全部带宽，正常请求被堵在门外，拒绝服务的目的达成。
 ```
@@ -36,7 +18,7 @@ Slowloris 攻击，Slow Attack，JavaScript DDoS，ReDoS 攻击，DNS Query Floo
         缺点：操作复杂，需收集大量IP，且需要机房允许发送伪造的数据包（大部分正规机房不允许发送伪造的UDP数据包）
 ```
 
-#### 应用层CC攻击(/cc/):
+#### 应用层CC攻击(目录：/cc/):
 
 > 原理：对一些消耗资源较大的应用页面不断发起正常的请求，以达到消耗服务器端资源的目的。在Web应用中，查询数据库、读写硬盘文件等操作，相对都会消耗比较多的资源。
 
@@ -48,7 +30,7 @@ Slowloris 攻击，Slow Attack，JavaScript DDoS，ReDoS 攻击，DNS Query Floo
       优点：使用大量代理IP攻击，不易被拦截
       缺点：需要购买大量代理IP
 
-### 三.使用方法
+### 使用方法
     如果要攻击的站点使用的是独立IP，可以直接输入IP地址
     如果要攻击的站点为某个网址，建议修改/etc/hosts，绑定要攻击域名与IP，减少DNS查询次数
 
@@ -70,7 +52,10 @@ Slowloris 攻击，Slow Attack，JavaScript DDoS，ReDoS 攻击，DNS Query Floo
     2.填写参数运行python程序
       python Saddam.py www.test.com benchmark -n ntp.txt 
 ```
-    > 此处以ntp攻击为例，其他反射攻击收集不同端口IP地址并修改 -n ntp.txt 即可，(-d dns反射攻击，-s snmp反射攻击， -p ssdp放射攻击)
+    > 此处以ntp攻击为例，其他反射攻击收集不同端口IP地址并修改 -n ntp.txt 即可
+- -d dns反射攻击
+- -s snmp反射攻击
+- -p ssdp放射攻击
 
 #### 应用层CC攻击(/cc/)
 > python版本3.6
