@@ -62,9 +62,9 @@
 1. CC直接攻击(cc/local.py)
 ```sh
 #get请求攻击 
-  python3 local-post.py -v http://www.test.com/search.php?searchword=
+  python3 local.py -v http://www.test.com/search.php?searchword=
 #post请求攻击 
-  python3 local-post.py -v http://www.test.com/search.php -p searchword
+  python3 local.py -v http://www.test.com/search.php -p searchword
 ```
 
 2. CC代理攻击(cc/proxy/)
