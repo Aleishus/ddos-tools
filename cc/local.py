@@ -138,12 +138,13 @@ def request(index):
 				r = requests.post(url, data=postdata, headers=headers, timeout=timeout)
 			else:
 				r = requests.get(geturl, headers=headers, timeout=timeout)
-			print(geturl)
-			print(words)
-			print(r.status_code)
-			print(r.text)
+			print("url: %s " % url)
+			print("words: %s" % words)
+			print("status code: %d" % r.status_code)
+			#print(r.text)
 			now = time.asctime( time.localtime(time.time()) )
 			print(now)
+			print()
 
 			if r.status_code == 406 and only_gzip < 5:
 				only_gzip += 1
